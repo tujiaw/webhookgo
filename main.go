@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -10,9 +12,18 @@ type WebhookHandler struct {
 }
 
 func (handler *WebhookHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	fmt.Println("-------------")
-	fmt.Println(r.PostForm)
+	bbody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprint(w, err)
+		return
+	}
+	var payload map[string]interface{}
+	err = json.Unmarshal(bbody, &payload)
+	if err != nil {
+		fmt.Fprint(w, err)
+		return
+	}
+	fmt.Println(payload)
 }
 
 func main() {
