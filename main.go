@@ -23,7 +23,8 @@ func (handler *WebhookHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
 		fmt.Fprint(w, err)
 		return
 	}
-	fmt.Println(payload)
+	rep := payload["repository"].(map[string]interface{})
+	fmt.Println(rep["full_name"])
 }
 
 func main() {
