@@ -10,16 +10,17 @@ type WebhookHandler struct {
 }
 
 func (handler *WebhookHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Fprint(w, "success")
+	r.ParseForm()
+	ref := r.PostFormValue("ref")
+	fmt.Println("ref", ref)
 }
 
 func main() {
 	const ADDRESS = ":3000"
 
-	http.Handle("/", &WebhookHandler{})
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "world")
+	http.Handle("/webhook", &WebhookHandler{})
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "success")
 	})
 
 	fmt.Println("start address", ADDRESS)
