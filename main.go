@@ -11,8 +11,8 @@ type WebhookHandler struct {
 
 func (handler *WebhookHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	ref := r.PostFormValue("ref")
-	fmt.Println("ref", ref)
+	fmt.Println("-------------")
+	fmt.Println(r.PostForm)
 }
 
 func main() {
