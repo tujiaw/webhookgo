@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-
-	"ningto.com/webhookgo/webhook"
+	"webhookgo/webhook"
 )
 
 func main() {
